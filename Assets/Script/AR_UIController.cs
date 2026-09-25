@@ -5,6 +5,7 @@ using Vuforia;
 public class AR_UIController : MonoBehaviour
 {
     [SerializeField] private GameObject arInterface; // Canvas World Space
+    [SerializeField] private GameObject VideoInterface;
     [SerializeField] private float fadeDuration = 0.3f;
 
     private CanvasGroup canvasGroup;
@@ -14,12 +15,19 @@ public class AR_UIController : MonoBehaviour
         canvasGroup = arInterface.GetComponent<CanvasGroup>();
         if (canvasGroup == null) canvasGroup = arInterface.AddComponent<CanvasGroup>();
         arInterface.SetActive(false); // Ocultar al inicio
+        VideoInterface.SetActive(false); // Ocultar al inicio
     }
 
     // 👉 Llamar desde TargetBehaviour cuando se detecta
     public void ShowUI()
     {
         arInterface.SetActive(true);
+        StartCoroutine(FadeCanvasGroup(canvasGroup, 0f, 1f, fadeDuration));
+    }
+
+    public void ShowVideo()
+    {
+        VideoInterface.SetActive(true);
         StartCoroutine(FadeCanvasGroup(canvasGroup, 0f, 1f, fadeDuration));
     }
 
